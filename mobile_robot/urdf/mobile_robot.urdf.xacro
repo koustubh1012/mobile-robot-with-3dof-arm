@@ -1,0 +1,1069 @@
+<?xml version="1.0"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="mobile_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="body_color">
+    <visual>
+    <material>
+        <ambient>.909803921568627 0.443137254901961 0.031372549019607 1</ambient>
+        <diffuse>.909803921568627 0.443137254901961 0.031372549019607 1</diffuse>
+        <specular>0.1 0.1 0.1 1</specular>
+        <emissive>0 0 0 0</emissive>
+    </material>
+    </visual>
+  </xacro:macro>
+  <xacro:macro name="axle_color">
+    <visual>
+    <material>
+        <ambient>0.694117647058824 0.0980392156862745 0.0980392156862745 1</ambient>
+        <diffuse>0.694117647058824 0.0980392156862745 0.0980392156862745 1</diffuse>
+        <specular>0.1 0.1 0.1 1</specular>
+        <emissive>0 0 0 0</emissive>
+    </material>
+    </visual>
+  </xacro:macro>
+  <xacro:macro name="wheel_color">
+      <visual>
+      <material>
+          <ambient>0.792156862745098 0.819607843137255 0.933333333333333 1</ambient>
+          <diffuse>0.792156862745098 0.819607843137255 0.933333333333333 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 0</emissive>
+      </material>
+      </visual>
+  </xacro:macro>
+  <xacro:macro name="arm_color">
+      <visual>
+      <material>
+          <ambient>0.250980392156863 0.250980392156863 0.250980392156863 1</ambient>
+          <diffuse>0.250980392156863 0.250980392156863 0.250980392156863 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 0</emissive>
+      </material>
+      </visual>
+  </xacro:macro>
+  <link name="dummy_link"></link>
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-1.74400308807807E-17 0.0100283117254966 -6.87004021214912E-18"
+        rpy="0 0 0" />
+      <mass
+        value="0.381994827947257" />
+      <inertia
+        ixx="0.000393612504790003"
+        ixy="4.88164026745336E-21"
+        ixz="1.96815669126852E-19"
+        iyy="0.0016377351442516"
+        iyz="-3.33854214401555E-22"
+        izz="0.00126939608347553" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="dummy_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0" />
+    <parent link="dummy_link"/>
+    <child link="base_link"/>
+  </joint>
+  <link
+    name="fl_arm">
+    <inertial>
+      <origin
+        xyz="-2.33107452646264E-08 -0.00470627245701623 1.28910008334593E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.00536615203146642" />
+      <inertia
+        ixx="5.80436729407386E-07"
+        ixy="2.07299843790617E-12"
+        ixz="-1.19986170865849E-12"
+        iyy="1.79083874367319E-07"
+        iyz="-7.39940162742903E-12"
+        izz="5.95165749310612E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/fl_arm.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/fl_arm.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_arm_joint"
+    type="revolute">
+    <origin
+      xyz="0.070222 0.065617 0"
+      rpy="-1.5708 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="fl_arm" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-0.7"
+      upper="0.7"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="fl_wheel">
+    <inertial>
+      <origin
+        xyz="-6.93889390390723E-18 0.0204090909090909 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.0215984494934298" />
+      <inertia
+        ixx="3.89277839699076E-06"
+        ixy="-9.74249850143838E-22"
+        ixz="8.470329472543E-22"
+        iyy="6.16046684414873E-06"
+        iyz="-1.83043016794643E-23"
+        izz="3.89277839699076E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/fl_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/fl_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0 0.0083221 0"
+      rpy="-1.5708 0 -2.2647" />
+    <parent
+      link="fl_arm" />
+    <child
+      link="fl_wheel" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="fr_arm">
+    <inertial>
+      <origin
+        xyz="-2.3310745292382E-08 -0.00470627245701623 1.28910008334593E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.00536615203146643" />
+      <inertia
+        ixx="5.80436729407387E-07"
+        ixy="2.07299843775487E-12"
+        ixz="-1.19986170863725E-12"
+        iyy="1.79083874367319E-07"
+        iyz="-7.39940162724756E-12"
+        izz="5.95165749310613E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/fr_arm.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/fr_arm.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_arm_joint"
+    type="revolute">
+    <origin
+      xyz="0.070222 -0.065617 0"
+      rpy="-1.5708 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="fr_arm" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-0.7"
+      upper="0.7"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="fr_wheel">
+    <inertial>
+      <origin
+        xyz="0 0.0204090909090909 -3.46944695195361E-18"
+        rpy="0 0 0" />
+      <mass
+        value="0.0215984494934299" />
+      <inertia
+        ixx="3.89277839699077E-06"
+        ixy="6.38433129573505E-22"
+        ixz="-2.64697796016969E-22"
+        iyy="6.16046684414874E-06"
+        iyz="-3.20702336338099E-23"
+        izz="3.89277839699077E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/fr_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/fr_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0 0.0083221 0"
+      rpy="1.5708 0 2.897" />
+    <parent
+      link="fr_arm" />
+    <child
+      link="fr_wheel" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="bl_arm">
+    <inertial>
+      <origin
+        xyz="-2.33107452785042E-08 0.0152937275429838 1.28910008320715E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.00536615203146643" />
+      <inertia
+        ixx="5.80436729407388E-07"
+        ixy="2.07299843775137E-12"
+        ixz="-1.19986170867949E-12"
+        iyy="1.7908387436732E-07"
+        iyz="-7.39940162729479E-12"
+        izz="5.95165749310614E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/bl_arm.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/bl_arm.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bl_arm_joint"
+    type="fixed">
+    <origin
+      xyz="-0.070222 0.065617 0.02"
+      rpy="-1.5708 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="bl_arm" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="bl_wheel">
+    <inertial>
+      <origin
+        xyz="-6.93889390390723E-18 0.0204090909090909 2.77555756156289E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.0215984494934298" />
+      <inertia
+        ixx="3.89277839699076E-06"
+        ixy="-3.00239144308343E-22"
+        ixz="-1.05879118406788E-22"
+        iyy="6.16046684414873E-06"
+        iyz="2.94253247431498E-22"
+        izz="3.89277839699076E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/bl_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/bl_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bl_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0 0.028322 0"
+      rpy="-1.5708 0 -1.7013" />
+    <parent
+      link="bl_arm" />
+    <child
+      link="bl_wheel" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="br_arm">
+    <inertial>
+      <origin
+        xyz="-2.3310745292382E-08 0.0152937275429838 1.28910008320715E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.00536615203146643" />
+      <inertia
+        ixx="5.80436729407388E-07"
+        ixy="2.07299843801863E-12"
+        ixz="-1.19986170866522E-12"
+        iyy="1.7908387436732E-07"
+        iyz="-7.39940162715487E-12"
+        izz="5.95165749310614E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/br_arm.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/br_arm.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="br_arm_joint"
+    type="fixed">
+    <origin
+      xyz="-0.070222 -0.065617 0.02"
+      rpy="-1.5708 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="br_arm" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="br_wheel">
+    <inertial>
+      <origin
+        xyz="1.38777878078145E-17 0.0204090909090909 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.0215984494934298" />
+      <inertia
+        ixx="3.89277839699076E-06"
+        ixy="7.15499813829865E-22"
+        ixz="-4.2351647362715E-22"
+        iyy="6.16046684414873E-06"
+        iyz="-3.85743006437122E-22"
+        izz="3.89277839699076E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/br_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/br_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="br_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0 0.028322 0"
+      rpy="1.5708 0 2.8675" />
+    <parent
+      link="br_arm" />
+    <child
+      link="br_wheel" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="arm_link1">
+    <inertial>
+      <origin
+        xyz="-1.61641067423782E-09 0.0460299753787847 0.000548948519966919"
+        rpy="0 0 0" />
+      <mass
+        value="0.024663029141111" />
+      <inertia
+        ixx="1.76721589533636E-05"
+        ixy="1.64950257116678E-12"
+        ixz="-1.21528189034802E-13"
+        iyy="1.23765778424454E-06"
+        iyz="-5.47665633115662E-07"
+        izz="1.76773954396787E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/arm_link1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.250980392156863 0.250980392156863 0.250980392156863 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/arm_link1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="arm_link1_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 0.02"
+      rpy="1.5708 0 -3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="arm_link1" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-3.141"
+      upper="3.141"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="arm_link2">
+    <inertial>
+      <origin
+        xyz="1.50367485409393E-07 0.0414284745830529 0.0012767269056566"
+        rpy="0 0 0" />
+      <mass
+        value="0.0212054747898364" />
+      <inertia
+        ixx="1.29632067818468E-05"
+        ixy="1.3596230014421E-10"
+        ixz="1.33116004553202E-11"
+        iyy="1.02113473608511E-06"
+        iyz="3.67308224574629E-08"
+        izz="1.29949482084535E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/arm_link2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/arm_link2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="arm_link2_joint"
+    type="revolute">
+    <origin
+      xyz="0 0.092002 0"
+      rpy="3.1416 0 3.1416" />
+    <parent
+      link="arm_link1" />
+    <child
+      link="arm_link2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="arm_link3">
+    <inertial>
+      <origin
+        xyz="-2.32791371153606E-09 -0.0491775848719201 0.000541039393699089"
+        rpy="0 0 0" />
+      <mass
+        value="0.0250235950456711" />
+      <inertia
+        ixx="1.79572782803733E-05"
+        ixy="2.74675837579675E-12"
+        ixz="6.64866157119856E-14"
+        iyy="1.24076672423742E-06"
+        iyz="-5.91068417117074E-07"
+        izz="1.79639067946851E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/arm_link3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.250980392156863 0.250980392156863 0.250980392156863 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/arm_link3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="arm_link3_joint"
+    type="revolute">
+    <origin
+      xyz="0 0.080133 0"
+      rpy="3.1416 0 0" />
+    <parent
+      link="arm_link2" />
+    <child
+      link="arm_link3" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="gripper_link">
+    <inertial>
+      <origin
+        xyz="-6.25173032412004E-19 0.00508064516129031 2.64137613620907E-18"
+        rpy="0 0 0" />
+      <mass
+        value="0.0111754304669823" />
+      <inertia
+        ixx="1.24439561764238E-06"
+        ixy="-2.08933296690118E-22"
+        ixz="1.05879118406788E-22"
+        iyy="2.30267942283385E-06"
+        iyz="4.48621215481348E-22"
+        izz="1.24439561764238E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/gripper_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/gripper_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="gripper_joint"
+    type="fixed">
+    <origin
+      xyz="0 -0.092002 0"
+      rpy="-3.1416 0.51716 0" />
+    <parent
+      link="arm_link3" />
+    <child
+      link="gripper_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="camera_link">
+    <inertial>
+      <origin
+        xyz="0.0017129085102263 2.52573213802704E-06 -0.0135068234873055"
+        rpy="0 0 0" />
+      <mass
+        value="0.0375090863072323" />
+      <inertia
+        ixx="2.09772639571525E-06"
+        ixy="-8.02354189878972E-09"
+        ixz="4.51123887821254E-08"
+        iyy="2.19130426941788E-05"
+        iyz="-1.30126348156451E-08"
+        izz="2.32157483966478E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/camera_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/camera_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="camera_joint"
+    type="fixed">
+    <origin
+      xyz="0.085133 0.002694 0.0325"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="camera_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <!-- <link
+    name="lidar_link">
+    <inertial>
+      <origin
+        xyz="0 -1.68051336735253E-18 0.025"
+        rpy="0 0 0" />
+      <mass
+        value="0.0144199102799772" />
+      <inertia
+        ixx="3.36464573199467E-06"
+        ixy="7.377193530594E-40"
+        ixz="1.0957841229123E-38"
+        iyy="3.36464573199467E-06"
+        iyz="1.74813427004756E-22"
+        izz="7.20995513998858E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/lidar_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.250980392156863 0.250980392156863 0.250980392156863 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mobile_robot/meshes/lidar_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="lidar_joint"
+    type="fixed">
+    <origin
+      xyz="0.036258 -0.00045966 0.02"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="lidar_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint> -->
+  <link name="lidar_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.01" radius="0.01"/>
+      </geometry>
+      <origin
+        xyz="0 -1.68051336735253E-18 0.02"
+        rpy="0 0 0" />
+    </visual>
+  </link>
+  <joint
+    name="lidar_joint"
+    type="fixed">
+    <origin
+      xyz="0.036258 -0.00045966 0.025"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="lidar_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <ros2_control name="GazeboSystem" type="system">
+    <hardware>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware>
+    <joint name="bl_wheel_joint">
+        <command_interface name="velocity">
+            <param name="min">-100.0</param>
+            <param name="max">100.0</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+    </joint>
+    <joint name="br_wheel_joint">
+        <command_interface name="velocity">
+            <param name="min">-100.0</param>
+            <param name="max">100.0</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+    </joint>
+    <joint name="fl_wheel_joint">
+        <command_interface name="velocity">
+            <param name="min">-100.0</param>
+            <param name="max">100.0</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+    </joint>
+    <joint name="fr_wheel_joint">
+        <command_interface name="velocity">
+            <param name="min">-100.0</param>
+            <param name="max">100.0</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+    </joint>
+    <joint name="fl_arm_joint">
+        <command_interface name="position">
+            <param name="min">-0.7</param>
+            <param name="max">0.7</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+    </joint>
+    <joint name="fr_arm_joint">
+        <command_interface name="position">
+            <param name="min">-0.7</param>
+            <param name="max">0.7</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm_link1_joint">
+        <command_interface name="position">
+            <param name="min">-3.141</param>
+            <param name="max">3.141</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm_link2_joint">
+        <command_interface name="position">
+            <param name="min">-3.0</param>
+            <param name="max">3.0</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm_link3_joint">
+        <command_interface name="position">
+            <param name="min">-3.0</param>
+            <param name="max">3.0</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm_link1_joint">
+        <command_interface name="velocity">
+            <param name="min">-1000.0</param>
+            <param name="max">1000.0</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm_link2_joint">
+        <command_interface name="velocity">
+            <param name="min">-1000.0</param>
+            <param name="max">1000.0</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm_link3_joint">
+        <command_interface name="velocity">
+            <param name="min">-1000.0</param>
+            <param name="max">1000.0</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+<gazebo>
+  <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+    <parameters>$(find mobile_robot)/config/control.yaml</parameters>
+  </plugin>
+</gazebo>
+<gazebo reference="lidar_link">
+  <sensor name="lidar" type="ray">
+    <pose>0.0 0.0 0.0 0 0 0</pose>
+    <always_on>true</always_on>
+    <visualize>true</visualize>
+    <update_rate>5</update_rate>
+    <ray>
+      <scan>
+        <horizontal>
+          <samples>360</samples>
+          <resolution>1.00000</resolution>
+          <min_angle>0.000000</min_angle>
+          <max_angle>6.280000</max_angle>
+        </horizontal>
+      </scan>
+      <range>
+        <min>0.120000</min>
+        <max>3.5</max>
+        <resolution>0.015000</resolution>
+      </range>
+      <noise>
+        <type>gaussian</type>
+        <mean>0.0</mean>
+        <stddev>0.01</stddev>
+      </noise>
+    </ray>
+    <plugin name="scan" filename="libgazebo_ros_ray_sensor.so">
+      <ros>
+        <remapping>~/out:=scan</remapping>
+      </ros>
+      <output_type>sensor_msgs/LaserScan</output_type>
+      <frame_name>lidar_link</frame_name>
+    </plugin>
+  </sensor>
+</gazebo>
+<gazebo reference="base_link">
+    <xacro:body_color />
+</gazebo>
+<gazebo reference="fl_arm">
+    <xacro:axle_color />
+</gazebo>
+<gazebo reference="fr_arm">
+    <xacro:axle_color />
+</gazebo>
+<gazebo reference="bl_arm">
+    <xacro:axle_color />
+</gazebo>
+<gazebo reference="br_arm">
+    <xacro:axle_color />
+</gazebo>
+<gazebo reference="fl_wheel">
+    <xacro:wheel_color />
+</gazebo>
+<gazebo reference="fr_wheel">
+    <xacro:wheel_color />
+</gazebo>
+<gazebo reference="bl_wheel">
+    <xacro:wheel_color />
+</gazebo>
+<gazebo reference="br_wheel">
+    <xacro:wheel_color />
+</gazebo>
+<gazebo reference="arm_link1">
+    <xacro:arm_color />
+</gazebo>
+<gazebo reference="arm_link3">
+    <xacro:arm_color />
+</gazebo>
+</robot>

@@ -1,0 +1,41 @@
+controller_manager:
+    ros__parameters:
+        update_rate: 1000  # Hz
+
+        use_sim_time: true
+
+        position_controller:
+            type: position_controllers/JointGroupPositionController
+
+        joint_state_broadcaster:
+            type: joint_state_broadcaster/JointStateBroadcaster
+
+        velocity_controller:
+            type: velocity_controllers/JointGroupVelocityController
+
+position_controller:
+    ros__parameters:
+        joints:
+            - arm_link1_joint
+            - arm_link2_joint
+            - arm_link3_joint
+            - fl_arm_joint
+            - fr_arm_joint
+        interface_name: position
+        command_interfaces:
+            - position
+        state_interfaces:
+            - position
+            - velocity
+
+velocity_controller:
+    ros__parameters:
+        joints:
+            - bl_wheel_joint
+            - br_wheel_joint
+        interface_name: velocity
+        command_interfaces:
+            - velocity
+        state_interfaces:
+            - position
+            - velocity
