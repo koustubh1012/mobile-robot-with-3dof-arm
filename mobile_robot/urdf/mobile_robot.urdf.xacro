@@ -1089,7 +1089,7 @@
 <gazebo>
   <plugin filename="libodometry_plugin.so" name="odometry_plugin">
     <!-- Name of the link for which the odometry is required -->
-    <frame>base_link</frame>
+    <frame>arm_link1</frame>
     <!-- Any arbitray name for the world frame -->
     <world_frame>fixed_world</world_frame>
   </plugin>
