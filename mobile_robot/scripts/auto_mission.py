@@ -15,8 +15,8 @@ START_X_COORDINATE = 0.0
 START_Y_COORDINATE = 0.0
 
 '''The goal coordinates for the robot'''
-DESTINATION_X_COORDINATE = 10.0
-DESTINATION_Y_COORDINATE = 10.0
+DESTINATION_X_COORDINATE = 5.0
+DESTINATION_Y_COORDINATE = 6.0
 
 Kp = 2.0                                               #proportional gain constant for steering control
 
@@ -56,8 +56,8 @@ class ToyCarController(Node):
         w = msg.orientation.w
 
         self.yaw = math.atan2(2 * (w * z + x * y), 1 - 2 * (y*y + z*z))                    # convert quaternion to yaw angle
-        self.x_vel = (self.wheel_angular_velocity*0.1016)*math.cos(self.yaw)*0.86          # calculate the x component of linear velocity
-        self.y_vel = (self.wheel_angular_velocity*0.1016)*math.sin(self.yaw)*0.90          # calculate the y component of linear velocity
+        self.x_vel = (self.wheel_angular_velocity*0.025)*math.cos(self.yaw) * 0.70              # calculate the x component of linear velocity
+        self.y_vel = (self.wheel_angular_velocity*0.025)*math.sin(self.yaw) * 0.715            # calculate the y component of linear velocity
         self.x += self.x_vel*(1/100)                                                       # calculate the dispacement of robot along x axis
         self.y += self.y_vel*(1/100)                                                       # calculate the dispacement of robot along y axis
         
@@ -69,9 +69,9 @@ class ToyCarController(Node):
             self.wheel_angular_velocity = 0.                                                        #set angular velocity of wheels to 0 and stop the robot
             self.steering_angler = 0.0
             self.publish_commands()
-            self.plot_trajectory_data()
+            # self.plot_trajectory_data()
         else:
-            self.wheel_angular_velocity = 10.0                                                      
+            self.wheel_angular_velocity = 20.0                                                      
             self.error = self.yaw_final - self.yaw                                                  # calculate the error between current heading and desired heading
             self.steering_angle = Kp*self.error                                                     # calculate the steering angle using a P controller
             self.get_logger().info(f'X: {round(self.x, 2)} , Y: {round(self.y, 2)}')
