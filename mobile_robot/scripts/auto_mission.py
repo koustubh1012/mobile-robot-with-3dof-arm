@@ -39,7 +39,7 @@ class ToyCarController(Node):
         self.joint_positions = Float64MultiArray()     # variable to store the angulary position of steering command
 
         qos_profile = QoSProfile(reliability=ReliabilityPolicy.BEST_EFFORT, history=HistoryPolicy.KEEP_LAST, depth=10)
-        super().__init__('toy_car_controller')         # initialise toy_car_controller node
+        super().__init__('sarb_controller')         # initialise toy_car_controller node
         self.subscription = self.create_subscription(Imu, '/imu_plugin/out', self.navigation_callback, qos_profile)
         self.joint_position_pub = self.create_publisher(Float64MultiArray, '/position_controller/commands', 10)
         self.wheel_velocities_pub = self.create_publisher(Float64MultiArray, '/velocity_controller/commands', 10)
@@ -56,8 +56,8 @@ class ToyCarController(Node):
         w = msg.orientation.w
 
         self.yaw = math.atan2(2 * (w * z + x * y), 1 - 2 * (y*y + z*z))                    # convert quaternion to yaw angle
-        self.x_vel = (self.wheel_angular_velocity*0.025)*math.cos(self.yaw) * 0.70              # calculate the x component of linear velocity
-        self.y_vel = (self.wheel_angular_velocity*0.025)*math.sin(self.yaw) * 0.715            # calculate the y component of linear velocity
+        self.x_vel = (self.wheel_angular_velocity*0.025)*math.cos(self.yaw) * 0.70         # calculate the x component of linear velocity
+        self.y_vel = (self.wheel_angular_velocity*0.025)*math.sin(self.yaw) * 0.715        # calculate the y component of linear velocity
         self.x += self.x_vel*(1/100)                                                       # calculate the dispacement of robot along x axis
         self.y += self.y_vel*(1/100)                                                       # calculate the dispacement of robot along y axis
         
@@ -87,7 +87,7 @@ class ToyCarController(Node):
     '''publish_commands function publishes the commands to /position_controller/commands and /velocity_controller/commands
     topics'''
     def publish_commands(self):
-        self.joint_positions.data = [0.0, 0.0, 0.0, -self.steering_angle, -self.steering_angle]
+        self.joint_positions.data = [-self.steering_angle, -self.steering_angle,0.0, 0.0, 0.0]
         self.wheel_velocities.data = [self.wheel_angular_velocity,-self.wheel_angular_velocity]
         self.wheel_velocities_pub.publish(self.wheel_velocities)
         self.joint_position_pub.publish(self.joint_positions)

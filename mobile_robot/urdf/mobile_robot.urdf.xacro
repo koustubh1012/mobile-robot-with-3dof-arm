@@ -49,17 +49,17 @@
     name="base_link">
     <inertial>
       <origin
-        xyz="-1.74400308807807E-17 0.0100283117254966 -6.87004021214912E-18"
+        xyz="-1.75672538476723E-17 6.5935161567653E-18 0.0100283117254966"
         rpy="0 0 0" />
       <mass
         value="0.381994827947257" />
       <inertia
         ixx="0.000393612504790003"
-        ixy="4.88164026745336E-21"
-        ixz="1.96815669126852E-19"
-        iyy="0.0016377351442516"
-        iyz="-3.33854214401555E-22"
-        izz="0.00126939608347553" />
+        ixy="-1.88319246976272E-19"
+        ixz="1.41525026789305E-21"
+        iyy="0.00126939608347553"
+        iyz="2.47278074798271E-20"
+        izz="0.0016377351442516" />
     </inertial>
     <visual>
       <origin
@@ -134,8 +134,8 @@
     name="fl_arm_joint"
     type="revolute">
     <origin
-      xyz="0.070222 0.065617 0"
-      rpy="-1.5708 0 3.1416" />
+      xyz="0.0702217273274367 0.0656166647925016 0"
+      rpy="-1.5707963267949 0 3.14159265358979" />
     <parent
       link="base_link" />
     <child
@@ -152,7 +152,7 @@
     name="fl_wheel">
     <inertial>
       <origin
-        xyz="-6.93889390390723E-18 0.0204090909090909 0"
+        xyz="0.00128983993187784 0.0204090909090909 0.00107313681754937"
         rpy="0 0 0" />
       <mass
         value="0.0215984494934298" />
@@ -192,8 +192,8 @@
     name="fl_wheel_joint"
     type="continuous">
     <origin
-      xyz="0 0.0083221 0"
-      rpy="-1.5708 0 -2.2647" />
+      xyz="0 0.01 0"
+      rpy="-1.5707963267949 0 -2.2647426174315" />
     <parent
       link="fl_arm" />
     <child
@@ -248,8 +248,8 @@
     name="fr_arm_joint"
     type="revolute">
     <origin
-      xyz="0.070222 -0.065617 0"
-      rpy="-1.5708 0 3.1416" />
+      xyz="0.0702217273274367 -0.0656166647925016 0"
+      rpy="-1.5707963267949 0 3.14159265358979" />
     <parent
       link="base_link" />
     <child
@@ -266,7 +266,7 @@
     name="fr_wheel">
     <inertial>
       <origin
-        xyz="0 0.0204090909090909 -3.46944695195361E-18"
+        xyz="-0.000406315233086041 0.0204090909090909 -0.00162794889674366"
         rpy="0 0 0" />
       <mass
         value="0.0215984494934299" />
@@ -275,7 +275,7 @@
         ixy="6.38433129573505E-22"
         ixz="-2.64697796016969E-22"
         iyy="6.16046684414874E-06"
-        iyz="-3.20702336338099E-23"
+        iyz="-3.207023363381E-23"
         izz="3.89277839699077E-06" />
     </inertial>
     <visual>
@@ -306,8 +306,8 @@
     name="fr_wheel_joint"
     type="continuous">
     <origin
-      xyz="0 0.0083221 0"
-      rpy="1.5708 0 2.897" />
+      xyz="0 0.01 0"
+      rpy="1.5707963267949 0 2.89700253067774" />
     <parent
       link="fr_arm" />
     <child
@@ -362,8 +362,8 @@
     name="bl_arm_joint"
     type="fixed">
     <origin
-      xyz="-0.070222 0.065617 0.02"
-      rpy="-1.5708 0 3.1416" />
+      xyz="-0.0702217273274363 0.0656166647925023 0.02"
+      rpy="-1.5707963267949 0 3.14159265358979" />
     <parent
       link="base_link" />
     <child
@@ -415,8 +415,8 @@
     name="bl_wheel_joint"
     type="continuous">
     <origin
-      xyz="0 0.028322 0"
-      rpy="-1.5708 0 -1.7013" />
+      xyz="0 0.028322111541536 0"
+      rpy="-1.5707963267949 0 -1.70126087370698" />
     <parent
       link="bl_arm" />
     <child
@@ -471,8 +471,8 @@
     name="br_arm_joint"
     type="fixed">
     <origin
-      xyz="-0.070222 -0.065617 0.02"
-      rpy="-1.5708 0 3.1416" />
+      xyz="-0.0702217273274368 -0.0656166647925016 0.02"
+      rpy="-1.5707963267949 0 3.14159265358979" />
     <parent
       link="base_link" />
     <child
@@ -524,8 +524,8 @@
     name="br_wheel_joint"
     type="continuous">
     <origin
-      xyz="0 0.028322 0"
-      rpy="1.5708 0 2.8675" />
+      xyz="0 0.028322111541536 0"
+      rpy="1.5707963267949 0 2.86750079728353" />
     <parent
       link="br_arm" />
     <child
@@ -581,7 +581,7 @@
     type="revolute">
     <origin
       xyz="0 0 0.02"
-      rpy="1.5708 0 -3.1416" />
+      rpy="1.5707963267949 0 -3.14159265358979" />
     <parent
       link="base_link" />
     <child
@@ -638,8 +638,8 @@
     name="arm_link2_joint"
     type="revolute">
     <origin
-      xyz="0 0.092002 0"
-      rpy="3.1416 0 3.1416" />
+      xyz="0 0.0920017909934982 0"
+      rpy="3.14159265358979 0 3.14159265358979" />
     <parent
       link="arm_link1" />
     <child
@@ -696,8 +696,8 @@
     name="arm_link3_joint"
     type="revolute">
     <origin
-      xyz="0 0.080133 0"
-      rpy="3.1416 0 0" />
+      xyz="0 0.0801329390710619 0"
+      rpy="3.14159265358979 0 0" />
     <parent
       link="arm_link2" />
     <child
@@ -752,7 +752,7 @@
   </link>
   <joint
     name="gripper_joint"
-    type="fixed">
+    type="revolute">
     <origin
       xyz="0 -0.092002 0"
       rpy="-3.1416 0.51716 0" />
@@ -762,22 +762,27 @@
       link="gripper_link" />
     <axis
       xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
   </joint>
   <link
     name="camera_link">
     <inertial>
       <origin
-        xyz="0.0017129085102263 2.52573213802704E-06 -0.0135068234873055"
+        xyz="0.00171290851166392 2.52601666424213E-06 -0.0135068234972629"
         rpy="0 0 0" />
       <mass
-        value="0.0375090863072323" />
+        value="0.0375090863148491" />
       <inertia
-        ixx="2.09772639571525E-06"
-        ixy="-8.02354189878972E-09"
-        ixz="4.51123887821254E-08"
-        iyy="2.19130426941788E-05"
-        iyz="-1.30126348156451E-08"
-        izz="2.32157483966478E-05" />
+        ixx="2.09772646173935E-06"
+        ixy="-8.02393224484296E-09"
+        ixz="4.51124086701842E-08"
+        iyy="2.19130427419489E-05"
+        iyz="-1.30125180473155E-08"
+        izz="2.32157483743609E-05" />
     </inertial>
     <visual>
       <origin
@@ -820,14 +825,14 @@
     name="lidar_link">
     <inertial>
       <origin
-        xyz="0 -1.68051336735253E-18 0.025"
+        xyz="0 0 6.93889390390723E-18"
         rpy="0 0 0" />
       <mass
         value="0.0144199102799772" />
       <inertia
         ixx="3.36464573199467E-06"
-        ixy="7.377193530594E-40"
-        ixz="1.0957841229123E-38"
+        ixy="2.75065280773537E-39"
+        ixz="-4.4950613036475E-39"
         iyy="3.36464573199467E-06"
         iyz="1.74813427004756E-22"
         izz="7.20995513998858E-07" />
@@ -860,7 +865,7 @@
     name="lidar_joint"
     type="fixed">
     <origin
-      xyz="0.036258 -0.00045966 0.02"
+      xyz="0.033883 -0.00018302 0.045"
       rpy="0 0 0" />
     <parent
       link="base_link" />
@@ -1089,7 +1094,7 @@
 <gazebo>
   <plugin filename="libodometry_plugin.so" name="odometry_plugin">
     <!-- Name of the link for which the odometry is required -->
-    <frame>arm_link1</frame>
+    <frame>gripper_link</frame>
     <!-- Any arbitray name for the world frame -->
     <world_frame>fixed_world</world_frame>
   </plugin>

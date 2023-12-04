@@ -84,7 +84,7 @@ class KeyboardControlNode(Node):
                 print("Linear Velocity",linear_vel)
                 # Publish the twist message
                 wheel_velocities.data = [linear_vel,-linear_vel]
-                joint_positions.data = [0.0, 0.0, 0.0,-steer_angle,-steer_angle]
+                joint_positions.data = [-steer_angle,-steer_angle,0.0, 0.0, 0.0]
 
                 self.joint_position_pub.publish(joint_positions)
                 self.wheel_velocities_pub.publish(wheel_velocities)
