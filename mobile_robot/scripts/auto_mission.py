@@ -8,7 +8,27 @@ from sensor_msgs.msg import Imu
 from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy
 import math
 import matplotlib.pyplot as plt
+import sympy as sp
+import numpy as np
 
+theta1 = sp.symbols("theta1")
+theta2 = sp.symbols("theta2")
+theta3 = sp.symbols("theta3")
+
+T = sp.Matrix([[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]])
+a = [0, 0.08, 0.092]
+d = [0.092, 0, 0]
+alpha = [(sp.pi)/2, 0 , 0]
+theta = [theta1 + sp.pi, theta2 + (sp.pi)/2, theta3]
+
+for i in range(0,3):
+  Ti = sp.Matrix([[sp.cos(theta[i]), -sp.sin(theta[i])*sp.cos(alpha[i]), sp.sin(theta[i])*sp.sin(alpha[i]), a[i]*sp.cos(theta[i])],
+             [sp.sin(theta[i]), sp.cos(theta[i])*sp.cos(alpha[i]), -sp.cos(theta[i])*sp.sin(alpha[i]), a[i]*sp.sin(theta[i])],
+             [0, sp.sin(alpha[i]), sp.cos(alpha[i]), d[i]],
+             [0, 0, 0, 1]])
+  T = T*Ti
+  
+sp.pprint(T)
 
 '''Ininital spawn coordinates of the robot'''
 START_X_COORDINATE = 0.0
