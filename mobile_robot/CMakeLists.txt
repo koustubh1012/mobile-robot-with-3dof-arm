@@ -37,6 +37,7 @@ install(
   launch/robot_description_publisher.py
   scripts/teleop_control.py
   scripts/auto_mission.py
+  scripts/auto_mission_2.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

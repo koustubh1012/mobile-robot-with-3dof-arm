@@ -86,8 +86,8 @@ class ToyCarController(Node):
         if ((DESTINATION_X_COORDINATE-0.15) <= self.x <= (DESTINATION_X_COORDINATE+0.15)) and (
             (DESTINATION_Y_COORDINATE-0.15) <= self.y <= (DESTINATION_Y_COORDINATE+0.15)):          #check if the root has reached the desired goal coordinates
             self.get_logger().info("Reached", once=True)
-            self.wheel_angular_velocity = 0.                                                        #set angular velocity of wheels to 0 and stop the robot
-            self.steering_angler = 0.0
+            self.wheel_angular_velocity = 0.0                                                        #set angular velocity of wheels to 0 and stop the robot
+            self.steering_angle = 0.0
             self.publish_commands()
             # self.plot_trajectory_data()
         else:
