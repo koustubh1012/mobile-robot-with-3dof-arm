@@ -38,6 +38,7 @@ install(
   scripts/teleop_control.py
   scripts/auto_mission.py
   scripts/auto_mission_2.py
+  scripts/auto_mission_3.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
