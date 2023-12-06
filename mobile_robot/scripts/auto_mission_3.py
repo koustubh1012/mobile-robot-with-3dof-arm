@@ -16,6 +16,16 @@ from geometry_msgs.msg import PoseStamped
 
 theta1, theta2, theta3 = sp.symbols('theta1, theta2, theta3')
 
+'''Ininital spawn coordinates of the robot'''
+START_X_COORDINATE = 0.0
+START_Y_COORDINATE = 0.0
+
+'''The goal coordinates for the robot'''
+DESTINATION_X_COORDINATE = 5.0
+DESTINATION_Y_COORDINATE = 6.0
+
+Kp = 2.0                                               #proportional gain constant for steering control
+
 class ToyCarController(Node):
 
     def homo_matrix(self,a,d,alpha,theta):                                                                                                                 #D-H Table function for calculating the homogeneous matrices
@@ -70,6 +80,7 @@ class ToyCarController(Node):
         self.q3 = 0.0                           
         self.joint_positions = Float64MultiArray()     # variable to store the angulary position of steering command
         self.wheel_velocities = Float64MultiArray() 
+        self.speed = 0.0
 
         qos_profile = QoSProfile(reliability=ReliabilityPolicy.BEST_EFFORT, history=HistoryPolicy.KEEP_LAST, depth=10)
         super().__init__('sarb_controller')         # initialise toy_car_controller node
@@ -78,23 +89,55 @@ class ToyCarController(Node):
         self.joint_position_pub = self.create_publisher(Float64MultiArray, '/position_controller/commands', 10)
         self.wheel_velocities_pub = self.create_publisher(Float64MultiArray, '/velocity_controller/commands', 10)
         self.joint_state_pub = self.create_publisher(JointState, '/joint_states', 10)
+        # self.subscription = self.create_subscription(Imu, '/imu_plugin/out', self.navigation_callback, qos_profile)
+
+    def move_to_grab_object(self):
+        q_dot = self.J_inv*self.X_dot
+        self.q = self.q + q_dot*self.dt
+        [angle1, angle2, angle3] = [self.q[i].item() for i in range(3)]
+        self.J_sp = self.J.subs({theta1: angle1, theta2: angle2, theta3: angle3})
+        J_value = np.matrix(self.J_sp).astype(np.float64)
+        self.J_inv = np.linalg.pinv(J_value)
+        self.q1 = self.q[0,0]
+        self.q2 = self.q[1,0]
+        self.q3 = self.q[2,0]
+        self.publish_commands()
+
+    def go_to_home_position(self):
+        q_dot = self.J_inv*(-self.X_dot)
+        self.q = self.q + q_dot*self.dt
+        [angle1, angle2, angle3] = [self.q[i].item() for i in range(3)]
+        self.J_sp = self.J.subs({theta1: angle1, theta2: angle2, theta3: angle3})
+        J_value = np.matrix(self.J_sp).astype(np.float64)
+        self.J_inv = np.linalg.pinv(J_value)
+        self.q1 = self.q[0,0]
+        self.q2 = self.q[1,0]
+        self.q3 = self.q[2,0]
+        self.publish_commands()
+
+    def go_forward(self):
+        self.speed = 10.0
+        self.publish_commands()
+
+    def stop(self):
+        self.speed = 0.0
+        self.publish_commands()
+
 
     def timer_callback(self):
         if (self.t < self.Time):
-            q_dot = self.J_inv*self.X_dot
-            self.q = self.q + q_dot*self.dt
-            [angle1, angle2, angle3] = [self.q[i].item() for i in range(3)]
-            self.J_sp = self.J.subs({theta1: angle1, theta2: angle2, theta3: angle3})
-            J_value = np.matrix(self.J_sp).astype(np.float64)
-            self.J_inv = np.linalg.pinv(J_value)
-            self.t = self.t + self.dt
-            self.q1 = self.q[0,0]
-            self.q2 = self.q[1,0]
-            self.q3 = self.q[2,0]
-            self.publish_commands()
+            self.move_to_grab_object()
+        elif(self.t > self.Time and self.t <= 20):
+            self.get_logger().info("Reached grabbing position", once="True")
+        elif (self.t >= 20 and self.t<30):
+            self.go_to_home_position()
+            self.get_logger().info("Ready to move", once="True")
+        elif (self.t <= 50):
+            self.go_forward()
         else:
-            self.get_logger().info("Reached", once="True")
-            self.plot_trajectory_data()
+            self.stop()
+        
+        self.t = self.t + self.dt
 
 
     def odom_callback(self,msg):
@@ -115,7 +158,7 @@ class ToyCarController(Node):
     topics'''
     def publish_commands(self):
         self.joint_positions.data = [0.0,0.0,-self.q1, self.q2,self.q3]
-        self.wheel_velocities.data = [0.0, 0.0]
+        self.wheel_velocities.data = [self.speed, -self.speed]
         self.wheel_velocities_pub.publish(self.wheel_velocities)
         self.joint_position_pub.publish(self.joint_positions)
         # self.get_logger().info(self.joint_positions.data)
