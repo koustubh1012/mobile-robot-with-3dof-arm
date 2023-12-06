@@ -1099,4 +1099,31 @@
     <world_frame>fixed_world</world_frame>
   </plugin>
 </gazebo>
+<gazebo>
+  <plugin name='vacuum_gripper' filename='libgazebo_ros_vacuum_gripper.so'>
+
+    <!-- This part can be commented out if not required -->
+    <ros>
+
+      <!-- Add a namespace -->
+
+      <namespace>/mobile_robot</namespace>
+
+      <!-- Remapping service and topic names -->
+      <remapping>switch:=custom_switch</remapping>
+      <remapping>grasping:=custom_grasping</remapping>
+    </ros>
+
+    <!-- Link associated with gripper -->
+    <link_name>gripper_link</link_name>
+
+    <!-- Max distance to attract entities -->
+    <max_distance>10.0</max_distance>
+
+    <!-- List of entities to be not attracted by the gripper -->
+    <fixed>ground_plane</fixed>
+    <fixed>wall</fixed>
+
+  </plugin>
+</gazebo>
 </robot>
