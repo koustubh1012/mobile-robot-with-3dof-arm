@@ -26,7 +26,7 @@ DESTINATION_Y_COORDINATE = 6.0
 
 Kp = 2.0                                               #proportional gain constant for steering control
 
-class ToyCarController(Node):
+class Mobile_Robot_Controller(Node):
 
     def homo_matrix(self,a,d,alpha,theta):                                                                                                                 #D-H Table function for calculating the homogeneous matrices
 
@@ -181,7 +181,7 @@ class ToyCarController(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    controller = ToyCarController()
+    controller = Mobile_Robot_Controller()
     rclpy.spin(controller)
     controller.destroy_node()
     rclpy.shutdown()
