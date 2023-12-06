@@ -1122,7 +1122,7 @@
 
     <!-- List of entities to be not attracted by the gripper -->
     <fixed>ground_plane</fixed>
-    <fixed>wall</fixed>
+    <fixed>box1</fixed>
 
   </plugin>
 </gazebo>
