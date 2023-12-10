@@ -128,12 +128,12 @@ class Mobile_Robot_Controller(Node):
             self.get_logger().info("Reached grabbing position", once="True")
         elif (self.t >= 20 and self.t<30):
             self.go_to_home_position()
-            self.get_logger().info("Ready to move", once="True")
         elif (self.t <= 50):
+            self.get_logger().info("Ready to move", once="True")
             self.go_forward()
         else:
             self.stop()
-            self.get_logger().info("Stopped", once="True")
+            self.get_logger().info("Reached", once="True")
         
         self.t = self.t + self.dt
 
