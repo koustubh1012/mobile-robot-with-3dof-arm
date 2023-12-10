@@ -10,7 +10,7 @@ import math
 import matplotlib.pyplot as plt
 
 
-class ToyCarController(Node):
+class MobileRobotController(Node):
 
     def __init__(self):
         self.q1 = 0.0
@@ -64,7 +64,7 @@ class ToyCarController(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    controller = ToyCarController()
+    controller = MobileRobotController()
     rclpy.spin(controller)
     controller.destroy_node()
     rclpy.shutdown()

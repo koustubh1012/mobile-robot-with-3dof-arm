@@ -14,20 +14,11 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from geometry_msgs.msg import PoseStamped
 
-theta1, theta2, theta3 = sp.symbols('theta1, theta2, theta3')
-
-'''Ininital spawn coordinates of the robot'''
-START_X_COORDINATE = 0.0
-START_Y_COORDINATE = 0.0
-
-'''The goal coordinates for the robot'''
-DESTINATION_X_COORDINATE = 5.0
-DESTINATION_Y_COORDINATE = 6.0
-
-Kp = 2.0                                               #proportional gain constant for steering control
+theta1, theta2, theta3 = sp.symbols('theta1, theta2, theta3')                # define symbols for the angles
 
 class Mobile_Robot_Controller(Node):
 
+    '''Function to calulate the Tranformation matrix'''
     def homo_matrix(self,a,d,alpha,theta):                                                                                                                 #D-H Table function for calculating the homogeneous matrices
 
         T = sp.Matrix([[sp.cos(theta), -sp.sin(theta)*sp.cos(alpha), sp.sin(theta)*sp.sin(alpha), a * sp.cos(theta)],
@@ -42,7 +33,7 @@ class Mobile_Robot_Controller(Node):
         T_3 = self.homo_matrix(0.092,0,0,theta3)
         T_01 = T_1
         T_02 = T_1 * T_2
-        T_03 = T_1 * T_2 * T_3
+        T_03 = T_1 * T_2 * T_3                                   # final transformation matrix
         J_w = sp.Matrix([[T_01[0,2],T_02[0,2],T_03[0,2]],[T_01[1,2],T_02[1,2],T_03[1,2]],[T_01[2,2],T_02[2,2],T_03[2,2]]])
         P_x = T_03[0,3]
         P_y = T_03[1,3]
@@ -57,14 +48,14 @@ class Mobile_Robot_Controller(Node):
         J_v[0,2] = sp.diff(P_x, theta3)
         J_v[1,2] = sp.diff(P_y, theta3)
         J_v[2,2] = sp.diff(P_z, theta3)
-        self.J = sp.Matrix.vstack(J_v, J_w)
-        theta_values = {theta1: 0.00001, theta2: 0.000001, theta3: 0}
+        self.J = sp.Matrix.vstack(J_v, J_w)                   # final Jacobian matrix
+        theta_values = {theta1: 0.00001, theta2: 0.000001, theta3: 0}             #Initial value of theta
         self.J_sp = self.J.subs(theta_values)
         J_value = np.matrix(self.J_sp).astype(np.float64)
         self.J_inv = np.linalg.pinv(J_value)
-        self.Time = 12            # total time to draw the circle
-        self.t = 0
-        self.dt = 0.1
+        self.Time = 12                                      # total time to draw the circle
+        self.t = 0                                          # initialise the time variable
+        self.dt = 0.1                                       # value of time step
         self.q = np.zeros((3,1))
         self.X_values = []
         self.Y_values = []
@@ -80,7 +71,7 @@ class Mobile_Robot_Controller(Node):
         self.q3 = 0.0                           
         self.joint_positions = Float64MultiArray()     # variable to store the angulary position of steering command
         self.wheel_velocities = Float64MultiArray() 
-        self.speed = 0.0
+        self.speed = 0.0                              # angular velocity of the wheel
 
         qos_profile = QoSProfile(reliability=ReliabilityPolicy.BEST_EFFORT, history=HistoryPolicy.KEEP_LAST, depth=10)
         super().__init__('sarb_controller')         # initialise toy_car_controller node
@@ -91,6 +82,7 @@ class Mobile_Robot_Controller(Node):
         self.joint_state_pub = self.create_publisher(JointState, '/joint_states', 10)
         # self.subscription = self.create_subscription(Imu, '/imu_plugin/out', self.navigation_callback, qos_profile)
 
+    '''Function to move the arm to the objects location'''
     def move_to_grab_object(self):
         q_dot = self.J_inv*self.X_dot
         self.q = self.q + q_dot*self.dt
@@ -103,6 +95,8 @@ class Mobile_Robot_Controller(Node):
         self.q3 = self.q[2,0]
         self.publish_commands()
 
+
+    '''Function to move the arm to the home location'''
     def go_to_home_position(self):
         q_dot = self.J_inv*(-self.X_dot)
         self.q = self.q + q_dot*self.dt
@@ -115,10 +109,13 @@ class Mobile_Robot_Controller(Node):
         self.q3 = self.q[2,0]
         self.publish_commands()
 
+
+    '''Function to give a forward velocity'''
     def go_forward(self):
         self.speed = 10.0
         self.publish_commands()
 
+    '''Function to stop the robot'''
     def stop(self):
         self.speed = 0.0
         self.publish_commands()
@@ -136,22 +133,15 @@ class Mobile_Robot_Controller(Node):
             self.go_forward()
         else:
             self.stop()
+            self.get_logger().info("Stopped", once="True")
         
         self.t = self.t + self.dt
-
 
     def odom_callback(self,msg):
         self.X_values.append(msg.pose.position.x)
         self.Y_values.append(msg.pose.position.y)
         self.Z_values.append(msg.pose.position.z)
-        # if (self.q2 <= -1.57):
-        #     self.q2 = -1.57
-        #     self.q1 = 1.57
-        #     self.publish_commands()
-        # else:
-        #     self.q2 -= 0.01
-        #     self.q1 += 0.01
-        #     self.publish_commands()
+        
 
 
     '''publish_commands function publishes the commands to /position_controller/commands and /velocity_controller/commands
